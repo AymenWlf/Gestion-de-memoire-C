@@ -1,0 +1,5 @@
+# depslib dependency file v1.0
+1649953072 source:c:\users\sucre\desktop\emsi\2eme annee\systeme d'exploitation\2eme semestre\exercices\projet\gestion de la memoire\gestion de la memoire\main.c
+	<stdio.h>
+	<stdlib.h>
+
