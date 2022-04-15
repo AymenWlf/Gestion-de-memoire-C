@@ -13,6 +13,7 @@ void RemoveProcBySize(int size)
 {
     processusNode *temp = head;
     processusNode *supNode = NULL;
+    processusNode *help = NULL;
 
     if(temp == NULL)
     {
@@ -22,16 +23,25 @@ void RemoveProcBySize(int size)
 
     while(temp != NULL)
     {
-        if((temp->next)->size == size)
+
+        if(head->size == size)
         {
-            break;
+            supNode = head;
+            head = head->next;
+            free(supNode);
+            return;
         }
+        help = temp->next;
+        if(help->size == size)
+        {
+            supNode = temp->next;
+            temp->next = supNode->next;
+            free(supNode);
+            return;
+        }
+
         temp = temp->next;
     }
-
-    supNode = temp->next;
-    temp->next = supNode->next;
-    free(supNode);
 }
 
 void PrintList()
@@ -40,10 +50,10 @@ void PrintList()
     int i=1;
     if(head == NULL)
     {
-        printf("No data in the list");
+        printf("\nNo data in the list\n");
         return;
     }
-    printf("This is your data liste : \n");
+    printf("\nThis is your data liste : \n");
 
     while(temp != NULL)
     {
@@ -67,9 +77,8 @@ void AddProcEndOrRemove(int sizeProc)
 
     while(temp->next != NULL)
     {
-        if(proc->size < 0 && (proc->size == (temp->size*(-1)) || proc->size == (temp->next)->size*(-1)))
+        if(proc->size < 0 && (proc->size == (temp->size*(-1))))
         {
-
             RemoveProcBySize(temp->size);
             //PrintList();
             return;
@@ -78,6 +87,15 @@ void AddProcEndOrRemove(int sizeProc)
 
     }
 
+    if(temp->next == NULL)
+    {
+        if(proc->size < 0 && (proc->size == (temp->size*(-1))))
+        {
+            RemoveProcBySize(temp->size);
+            //PrintList();
+            return;
+        }
+    }
     temp->next = proc;
     PrintList();
 }
@@ -122,7 +140,6 @@ int main()
         PrintList();
     }
 
-    PrintList();
 
 
     return 0;
